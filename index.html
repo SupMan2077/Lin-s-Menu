@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>家庭菜单</title>
-  <meta name="description" content="一个适合家庭分享的漂亮菜单页面，支持菜品图片和二维码分享。" />
+  <title>Lin's Menu</title>
+  <meta name="description" content="Welcome to my house, please tell Lin what you want to order!" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -17,7 +17,6 @@
       --muted:#6b7280;
       --primary:#c97c5d;
       --primary-2:#8f5b47;
-      --accent:#f59e0b;
       --line:rgba(31,41,55,.08);
       --shadow:0 18px 50px rgba(31,41,55,.10);
       --radius:24px;
@@ -38,7 +37,7 @@
     }
     .hero::after{
       content:"";position:absolute;right:-30px;top:-30px;width:180px;height:180px;border-radius:50%;
-      background:rgba(255,255,255,.10);filter:blur(0px);
+      background:rgba(255,255,255,.10);
     }
     .hero-top{display:flex;gap:16px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;position:relative;z-index:1}
     .title{margin:0;font-size:clamp(28px,5vw,44px);line-height:1.05;font-weight:800;letter-spacing:.02em}
@@ -65,6 +64,15 @@
     .qr-wrap{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
     #qrcode{background:#fff;padding:10px;border-radius:16px;display:inline-flex;border:1px solid var(--line)}
     .small{font-size:12px;color:var(--muted);line-height:1.6}
+    .wifi-block{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+    .wifi-title{margin:0 0 10px;font-size:13px;font-weight:800;color:var(--text)}
+    .wifi-gate-row{display:flex;gap:10px;flex-wrap:wrap;align-items:stretch}
+    .wifi-gate-row .url-input{min-width:140px;flex:1}
+    .wifi-err{margin:8px 0 0;font-size:12px;color:#b91c1c}
+    .wifi-inner{margin-top:4px;padding-left:2px}
+    .wifi-row{margin:0;font-size:13px;color:var(--muted);line-height:1.75}
+    .wifi-row + .wifi-row{margin-top:4px}
+    .wifi-row strong{color:var(--text);font-weight:700;letter-spacing:.02em}
 
     .section{margin-top:22px}
     .section-head{display:flex;justify-content:space-between;align-items:end;gap:16px;flex-wrap:wrap;margin:18px 4px 12px}
@@ -77,14 +85,11 @@
       overflow:hidden;box-shadow:var(--shadow)
     }
     .card.featured{grid-column:span 12;display:grid;grid-template-columns:1.1fr .9fr}
-    .img{
-      min-height:210px;background:#ddd center/cover no-repeat;position:relative
-    }
+    .img{min-height:210px;background:#ddd center/cover no-repeat;position:relative}
     .card.featured .img{min-height:340px}
     .content{padding:18px}
     .name-row{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
     .name{margin:0;font-size:20px;font-weight:800}
-    .price{font-size:22px;font-weight:800;color:var(--primary)}
     .desc{margin:8px 0 14px;color:var(--muted);line-height:1.7;font-size:14px}
     .tags{display:flex;gap:8px;flex-wrap:wrap}
     .tag{font-size:12px;padding:7px 10px;border-radius:999px;background:#f8f3ef;color:#7a4f3e;border:1px solid #f1dfd5}
@@ -105,7 +110,6 @@
       .panel{padding:12px;border-radius:18px}
       .share-box,.info-box{padding:14px;border-radius:16px}
       .content{padding:14px}
-      .price{font-size:20px}
     }
   </style>
 </head>
@@ -114,34 +118,46 @@
     <header class="hero">
       <div class="hero-top">
         <div>
-          <h1 class="title">家庭菜单 · 今日推荐</h1>
-          <p class="subtitle">做成像餐厅菜单一样的分享页。可以放菜品图片、介绍、价格，还能自动生成二维码，发给朋友直接扫码看。</p>
+          <h1 class="title">Lin's Menu</h1>
+          <p class="subtitle">Welcome to my house, please tell Lin what you want to order!</p>
           <div class="badge-row">
-            <span class="badge">🍳 <b>家宴风</b> 菜单</span>
-            <span class="badge">📱 <b>手机友好</b> 自适应</span>
-            <span class="badge">🔗 <b>二维码</b> 一键分享</span>
+            <span class="badge">🍽️ <b>Family</b> Menu</span>
+            <span class="badge">📱 <b>Mobile</b> Friendly</span>
+            <span class="badge">🔗 <b>QR</b> Share</span>
           </div>
         </div>
-        <div class="badge" style="align-self:flex-start;">✨ 可直接部署到 GitHub Pages</div>
+        <div class="badge" style="align-self:flex-start;">✨ Scan to view the menu</div>
       </div>
 
       <div class="panel">
         <div class="share-box">
-          <h3>分享链接与二维码</h3>
+          <h3>Share Link</h3>
           <div class="share-row">
             <input id="pageUrl" class="url-input" type="text" value="https://supman2077.github.io/Lin-s-Menu/" />
-            <button class="btn" onclick="makeQR()">生成二维码</button>
-            <button class="btn secondary" onclick="copyLink()">复制链接</button>
+            <button class="btn" onclick="makeQR()">Generate QR</button>
+            <button class="btn secondary" onclick="copyLink()">Copy Link</button>
           </div>
-          <p class="small">把上面的地址改成你 GitHub Pages 的真实网址。二维码会自动对应这个链接。</p>
         </div>
         <div class="info-box">
-          <h3>扫码预览</h3>
+          <h3>QR Preview</h3>
           <div class="qr-wrap">
             <div id="qrcode"></div>
             <div class="small">
-              <div><b>提示：</b>先把页面发布到 GitHub Pages，再把真实网址填进去。</div>
-              <div style="margin-top:8px;">也可以把这页打印成“电子菜单”，朋友扫码就能看。</div>
+              <div>Open the page from your GitHub Pages link, then use this QR code to share it.</div>
+            </div>
+          </div>
+          <div class="wifi-block">
+            <p class="wifi-title">客用 Wi‑Fi</p>
+            <div id="wifiGate">
+              <div class="wifi-gate-row">
+                <input id="wifiPass" class="url-input" type="password" inputmode="text" autocomplete="off" placeholder="请输入口令" />
+                <button type="button" class="btn secondary" onclick="unlockWifi()">确认</button>
+              </div>
+              <p id="wifiErr" class="wifi-err" hidden>口令不对，请重试。</p>
+            </div>
+            <div id="wifiReveal" class="wifi-inner" hidden>
+              <p class="wifi-row">网络名称：<strong>USA00001515</strong></p>
+              <p class="wifi-row">密码：<strong>63303161</strong></p>
             </div>
           </div>
         </div>
@@ -151,10 +167,9 @@
     <section class="section">
       <div class="section-head">
         <div>
-          <h2>今日菜单</h2>
-          <p>你可以直接改图片、菜名、描述和价格。</p>
+          <h2>Main Dishes</h2>
+          <p>House favorites and warm dishes.</p>
         </div>
-        <p>建议：每道菜都配一张清晰图片，更像餐厅菜单。</p>
       </div>
 
       <div class="grid">
@@ -163,11 +178,10 @@
           <div class="content">
             <div class="name-row">
               <h3 class="name">招牌红烧肉</h3>
-              <div class="price">¥38</div>
             </div>
-            <p class="desc">肥瘦相间、慢火收汁，口感浓郁。适合周末家宴，配米饭特别香。</p>
+            <p class="desc">肥瘦相间、慢火收汁，口感浓郁，适合配米饭。</p>
             <div class="tags">
-              <span class="tag">热菜</span><span class="tag">下饭</span><span class="tag">家庭必点</span>
+              <span class="tag">热菜</span><span class="tag">下饭</span><span class="tag">推荐</span>
             </div>
           </div>
         </article>
@@ -177,9 +191,8 @@
           <div class="content">
             <div class="name-row">
               <h3 class="name">番茄牛腩</h3>
-              <div class="price">¥42</div>
             </div>
-            <p class="desc">酸甜开胃，汤汁浓厚，牛腩炖到软烂，老人孩子都喜欢。</p>
+            <p class="desc">酸甜开胃，汤汁浓厚，牛腩炖到软烂。</p>
             <div class="tags"><span class="tag">汤菜</span><span class="tag">开胃</span></div>
           </div>
         </article>
@@ -189,9 +202,8 @@
           <div class="content">
             <div class="name-row">
               <h3 class="name">清炒时蔬</h3>
-              <div class="price">¥18</div>
             </div>
-            <p class="desc">清爽不油腻，今天可换成西兰花、油麦菜、空心菜等。</p>
+            <p class="desc">清爽不油腻，适合搭配主菜一起吃。</p>
             <div class="tags"><span class="tag">素菜</span><span class="tag">健康</span></div>
           </div>
         </article>
@@ -200,34 +212,57 @@
           <div class="img" style="background-image:url('https://images.unsplash.com/photo-1562967914-608f82629710?auto=format&fit=crop&w=1200&q=80');"></div>
           <div class="content">
             <div class="name-row">
-              <h3 class="name">水果甜品</h3>
-              <div class="price">¥16</div>
+              <h3 class="name">水果拼盘</h3>
             </div>
-            <p class="desc">饭后小甜点，清凉解腻。也可以换成布丁、冰粉、杨枝甘露风格。</p>
-            <div class="tags"><span class="tag">甜品</span><span class="tag">饭后</span></div>
+            <p class="desc">清爽解腻，适合饭后分享。</p>
+            <div class="tags"><span class="tag">甜点</span><span class="tag">饭后</span></div>
           </div>
         </article>
       </div>
     </section>
 
-    <div class="footer-note">
-      <div>把这份 HTML 放到 <b>index.html</b>，上传到 GitHub Pages 就能用了。</div>
-      <div class="split">
-        <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">回到顶部</a>
-        <a href="#" onclick="window.print();return false;">打印菜单</a>
+    <section class="section">
+      <div class="section-head">
+        <div>
+          <h2>Drinks</h2>
+          <p>Cold and warm drinks for the table.</p>
+        </div>
       </div>
-    </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="img" style="background-image:url('https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="content">
+            <div class="name-row">
+              <h3 class="name">柠檬气泡水</h3>
+            </div>
+            <p class="desc">清爽带气泡，适合搭配热菜。</p>
+            <div class="tags"><span class="tag">冰饮</span><span class="tag">清爽</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="img" style="background-image:url('https://images.unsplash.com/photo-1517701550927-30cf4ba1f9d8?auto=format&fit=crop&w=1200&q=80');"></div>
+          <div class="content">
+            <div class="name-row">
+              <h3 class="name">热奶茶</h3>
+            </div>
+            <p class="desc">暖暖的，适合冬天和饭后聊天。</p>
+            <div class="tags"><span class="tag">热饮</span><span class="tag">奶香</span></div>
+          </div>
+        </article>
+      </div>
+    </section>
   </div>
 
   <script>
     const defaultUrl = document.getElementById('pageUrl').value;
     const qrBox = document.getElementById('qrcode');
-    let qr;
 
     function makeQR() {
       const url = document.getElementById('pageUrl').value.trim();
       qrBox.innerHTML = '';
-      qr = new QRCode(qrBox, {
+      new QRCode(qrBox, {
         text: url || defaultUrl,
         width: 180,
         height: 180,
@@ -250,6 +285,36 @@
     document.getElementById('pageUrl').addEventListener('keydown', (e) => {
       if (e.key === 'Enter') makeQR();
     });
+
+    const WIFI_STORAGE_KEY = 'lin-menu-wifi';
+    const wifiPassEl = document.getElementById('wifiPass');
+    const wifiGateEl = document.getElementById('wifiGate');
+    const wifiRevealEl = document.getElementById('wifiReveal');
+    const wifiErrEl = document.getElementById('wifiErr');
+
+    function applyWifiUnlock() {
+      wifiGateEl.hidden = true;
+      wifiRevealEl.hidden = false;
+      wifiErrEl.hidden = true;
+    }
+
+    function unlockWifi() {
+      const ok = wifiPassEl.value.trim().toLowerCase() === 'uou';
+      if (ok) {
+        sessionStorage.setItem(WIFI_STORAGE_KEY, '1');
+        applyWifiUnlock();
+      } else {
+        wifiErrEl.hidden = false;
+      }
+    }
+
+    wifiPassEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') unlockWifi();
+    });
+
+    if (sessionStorage.getItem(WIFI_STORAGE_KEY) === '1') {
+      applyWifiUnlock();
+    }
 
     makeQR();
   </script>
